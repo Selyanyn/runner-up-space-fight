@@ -1,5 +1,7 @@
 {
     "name": "lenovo/hproject",
+    "description": "Project for a space game",
+    "license": "MIT",
     "type": "project",
     "autoload": {
         "psr-4": {
