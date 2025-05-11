@@ -3,7 +3,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Lenovo\\Hproject\\": "src/"
+            "Hproject\\": "src/"
         }
     },
     "authors": [
@@ -16,6 +16,6 @@
         "php": "^8.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "12.1.5"
+        "phpunit/phpunit": "^12.1.5"
     }
 }
