@@ -27,4 +27,9 @@ final readonly class FlatVector
             sin($angle) * $this->x + cos($angle) * $this->y,
         );
     }
+
+    public function isEqualWithEpsilon(FlatVector $vector)
+    {
+        return EpsilonCompare::isEqual($this->x, $vector->x) && EpsilonCompare::isEqual($this->y, $vector->y);
+    }
 }
