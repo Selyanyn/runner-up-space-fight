@@ -28,6 +28,11 @@ final readonly class FlatVector
         );
     }
 
+    public function getModule(): float
+    {
+        return sqrt($this->x * $this->x + $this->y * $this->y);
+    }
+
     public function isEqualWithEpsilon(FlatVector $vector)
     {
         return EpsilonCompare::isEqual($this->x, $vector->x) && EpsilonCompare::isEqual($this->y, $vector->y);
