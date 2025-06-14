@@ -19,8 +19,9 @@ final class InversionOfControlContainer
         mixed ...$params,
     ) {
         if (self::$actionStrategyRegistry->isValidStrategy($key)) {
-            self::$scope = self::$actionStrategyRegistry->getStrategy($key)(self::$scope, ...$params);
-            return;
+            $actionResult = self::$actionStrategyRegistry->getStrategy($key)(self::$scope, ...$params);
+            self::$scope = $actionResult->currentScope;
+            return $actionResult->result;
         }
 
         return self::$scope->getStrategy($key)(...$params);

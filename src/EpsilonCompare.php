@@ -14,6 +14,6 @@ final readonly class EpsilonCompare
 
     public static function isEqual(float $a, float $b, $epsilon = 0.000001)
     {
-        return $a - $b < $epsilon;
+        return abs($a - $b) < $epsilon;
     }
 }

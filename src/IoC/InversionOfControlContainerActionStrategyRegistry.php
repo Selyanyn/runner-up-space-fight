@@ -20,7 +20,7 @@ final class InversionOfControlContainerActionStrategyRegistry
     }
 
     /**
-     * @return callable(IoCScope): IoCScope
+     * @return callable(IoCScope): IoCActionResult
      */
     public function getStrategy(string $key): callable
     {

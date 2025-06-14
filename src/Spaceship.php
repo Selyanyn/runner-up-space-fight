@@ -46,4 +46,6 @@ final class Spaceship implements Moveable, Rotateable, HasFuel, VelocityChangeab
 
         $this->fuel -= $burntFuel;
     }
+
+    public function finish(): void {}
 }
