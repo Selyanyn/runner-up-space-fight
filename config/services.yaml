@@ -13,8 +13,16 @@ services:
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-#    Hproject\:
-#        resource: '../src/'
+    Hproject\:
+        resource: '../src/'
+    
+    Hproject\IoC\IoCScope:
+        arguments:
+            $parentScope: null
+        class: Hproject\IoC\IoCScope
+
+    Hproject\Interpretate\GameStateRepositoryInterface:
+        class: Hproject\Interpretate\GameStateRepository
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
