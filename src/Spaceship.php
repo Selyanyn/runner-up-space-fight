@@ -2,10 +2,12 @@
 
 namespace Hproject;
 
+use Hproject\Game\GameObjectInterface;
+
 /**
  * Простйешая реализация интерфейсов Moveable и Rotateable
  */
-final class Spaceship implements Moveable, Rotateable, HasFuel, VelocityChangeable
+final class Spaceship implements Moveable, Rotateable, HasFuel, VelocityChangeable, GameObjectInterface
 {
     public function __construct(
         private FlatVector $location,
@@ -48,4 +50,13 @@ final class Spaceship implements Moveable, Rotateable, HasFuel, VelocityChangeab
     }
 
     public function finish(): void {}
+
+    public function toJsonAgentResponse(): array
+    {
+        return [
+            'location' => [$this->location->x, $this->location->y],
+            'velocity' => [$this->velocity->x, $this->velocity->y],
+            'fuel' => $this->fuel,
+        ];
+    }
 }

@@ -1,6 +1,8 @@
 {
+    "name": "lenovo/hproject",
+    "description": "Project for a space game",
+    "license": "MIT",
     "type": "project",
-    "license": "proprietary",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
@@ -15,8 +17,8 @@
         "symfony/yaml": "7.3.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^12.1.5",
-        "phpstan/phpstan": "*"
+        "phpunit/phpunit": "^12.2.5",
+        "phpstan/phpstan": ">=2.1.17"
     },
     "config": {
         "allow-plugins": {
