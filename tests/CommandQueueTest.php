@@ -1,20 +1,13 @@
 <?php
 
-use Hproject\BurnFuelCommand;
-use Hproject\CommandException;
-use Hproject\CheckFuelCommand;
-use Hproject\FlatVector;
-use Hproject\IoC\InversionOfControlContainer;
-use Hproject\IoC\InitIoCContainerActionStrategyRegistry;
-use Hproject\IoC\IoCScopeException;
-use Hproject\MacroCommand;
-use Hproject\Moveable;
-use Hproject\MoveCommand;
-use Hproject\Queue\BeginQueueProcessingCommand;
-use Hproject\Queue\CommandQueue;
-use Hproject\Queue\HardStopQueueProcessingCommand;
-use Hproject\Queue\SoftStopQueueProcessingCommand;
-use Hproject\Spaceship;
+use Hproject\Game\Command\BurnFuelCommand;
+use Hproject\Infrastructure\Math\FlatVector;
+use Hproject\Game\Command\MoveCommand;
+use Hproject\Infrastructure\Queue\BeginQueueProcessingCommand;
+use Hproject\Infrastructure\Queue\CommandQueue;
+use Hproject\Infrastructure\Queue\HardStopQueueProcessingCommand;
+use Hproject\Infrastructure\Queue\SoftStopQueueProcessingCommand;
+use Hproject\Game\GameObject\Spaceship;
 use PHPUnit\Framework\TestCase;
 
 final class CommandQueueTest extends TestCase

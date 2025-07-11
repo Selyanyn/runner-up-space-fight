@@ -1,5 +1,6 @@
 controllers:
     resource:
-        path: ../src/Controller/
-        namespace: Hproject\Controller
+        path: ../src/Game/Controller/
+        namespace: Hproject\Game\Controller
     type: attribute
+# https://stackoverflow.com/questions/51907579/symfony-4-controllers-in-two-directories

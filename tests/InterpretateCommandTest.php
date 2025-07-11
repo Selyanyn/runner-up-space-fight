@@ -1,21 +1,17 @@
 <?php
 
-use Hproject\BurnFuelCommand;
-use Hproject\CommandException;
-use Hproject\CheckFuelCommand;
-use Hproject\FlatVector;
-use Hproject\Game\Game;
-use Hproject\Game\GameState;
-use Hproject\Interpretate\InterpretateCommand;
-use Hproject\Interpretate\InterpretateCommandStrategyRegistry;
-use Hproject\IoC\InversionOfControlContainer;
-use Hproject\IoC\InitIoCContainerActionStrategyRegistry;
-use Hproject\IoC\IoCScopeException;
-use Hproject\Queue\CommandQueue;
-use Hproject\MacroCommand;
-use Hproject\Moveable;
-use Hproject\MoveCommand;
-use Hproject\Spaceship;
+use Hproject\Game\Command\BurnFuelCommand;
+use Hproject\Game\Command\CheckFuelCommand;
+use Hproject\Infrastructure\Math\FlatVector;
+use Hproject\Game\Game\Game;
+use Hproject\Game\Game\GameState;
+use Hproject\Infrastructure\Interpretate\InterpretateCommand;
+use Hproject\Infrastructure\Interpretate\InterpretateCommandStrategyRegistry;
+use Hproject\Infrastructure\IoC\InversionOfControlContainer;
+use Hproject\Infrastructure\IoC\InitIoCContainerActionStrategyRegistry;
+use Hproject\Infrastructure\Queue\CommandQueue;
+use Hproject\Infrastructure\Command\MacroCommand;
+use Hproject\Game\GameObject\Spaceship;
 use PHPUnit\Framework\TestCase;
 
 final class InterpretateCommandTest extends TestCase

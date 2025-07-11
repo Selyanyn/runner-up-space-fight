@@ -1,15 +1,14 @@
 <?php
 
-use Hproject\BurnFuelCommand;
-use Hproject\CommandException;
-use Hproject\CheckFuelCommand;
-use Hproject\FlatVector;
-use Hproject\IoC\InversionOfControlContainer;
-use Hproject\IoC\InitIoCContainerActionStrategyRegistry;
-use Hproject\IoC\IoCScopeException;
-use Hproject\MacroCommand;
-use Hproject\MoveCommand;
-use Hproject\Spaceship;
+use Hproject\Game\Command\BurnFuelCommand;
+use Hproject\Game\Command\CheckFuelCommand;
+use Hproject\Infrastructure\Math\FlatVector;
+use Hproject\Infrastructure\IoC\InversionOfControlContainer;
+use Hproject\Infrastructure\IoC\InitIoCContainerActionStrategyRegistry;
+use Hproject\Infrastructure\IoC\IoCScopeException;
+use Hproject\Infrastructure\Command\MacroCommand;
+use Hproject\Game\Command\MoveCommand;
+use Hproject\Game\GameObject\Spaceship;
 use PHPUnit\Framework\TestCase;
 
 final class IoCScopeTest extends TestCase

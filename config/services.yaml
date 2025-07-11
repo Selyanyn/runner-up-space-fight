@@ -16,13 +16,13 @@ services:
     Hproject\:
         resource: '../src/'
     
-    Hproject\IoC\IoCScope:
+    Hproject\Infrastructure\IoC\IoCScope:
         arguments:
             $parentScope: null
-        class: Hproject\IoC\IoCScope
+        class: Hproject\Infrastructure\IoC\IoCScope
 
-    Hproject\Interpretate\GameStateRepositoryInterface:
-        class: Hproject\Interpretate\GameStateRepository
+    Hproject\Infrastructure\Interpretate\GameStateRepositoryInterface:
+        class: Hproject\Infrastructure\Interpretate\GameStateRepository
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

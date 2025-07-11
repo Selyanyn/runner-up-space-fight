@@ -1,14 +1,14 @@
 <?php
 
-use Hproject\FlatVector;
-use Hproject\BurnFuelCommand;
-use Hproject\ChangeVelocityCommand;
-use Hproject\CheckFuelCommand;
-use Hproject\CommandException;
-use Hproject\MacroCommand;
-use Hproject\MoveCommand;
-use Hproject\RotateCounterclockwiseCommand;
-use Hproject\Spaceship;
+use Hproject\Infrastructure\Math\FlatVector;
+use Hproject\Game\Command\BurnFuelCommand;
+use Hproject\Game\Command\ChangeVelocityCommand;
+use Hproject\Game\Command\CheckFuelCommand;
+use Hproject\Infrastructure\Command\CommandException;
+use Hproject\Infrastructure\Command\MacroCommand;
+use Hproject\Game\Command\MoveCommand;
+use Hproject\Game\Command\RotateCounterclockwiseCommand;
+use Hproject\Game\GameObject\Spaceship;
 use PHPUnit\Framework\TestCase;
 
 final class MacroCommandTest extends TestCase
