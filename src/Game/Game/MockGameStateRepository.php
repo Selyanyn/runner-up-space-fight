@@ -10,7 +10,7 @@ use Hproject\Infrastructure\Queue\CommandQueue;
  * Пример реализации репозитория. Настоящее приложение ходило бы в хранилище данных, например, в базу данных
  * (здесь были бы вызовы ORM или прямые SQL-методы).
  */
-final readonly class GameStateRepository implements GameStateRepositoryInterface
+final readonly class MockGameStateRepository implements GameStateRepositoryInterface
 {
     private Game $game;
 
@@ -22,20 +22,22 @@ final readonly class GameStateRepository implements GameStateRepositoryInterface
             10.0,
         );
         $this->game = new Game(
+            1,
             new CommandQueue(),
             new GameState([
                 1 => $gameObject,
-            ])
+            ]),
+            [1, 2],
         );
     }
 
-    public function getGame(int $id): Game
+    public function getGame(int $id): ?Game
     {
-        return $this->game;
+        return $id === 1 ? $this->game : null;
     }
 
-    public function getGameObject(int $gameId, int $objectId): GameObjectInterface
+    public function getGameObject(int $gameId, int $objectId): ?GameObjectInterface
     {
-        return $this->game->gameState->gameObjects[$objectId] ?? throw new \Exception();
+        return $this->game->gameState->gameObjects[$objectId] ?? null;
     }
 }

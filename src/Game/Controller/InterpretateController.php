@@ -6,11 +6,15 @@ use Hproject\Game\Game\GameStateRepositoryInterface;
 use Hproject\Infrastructure\Interpretate\InterpretateCommand;
 use Hproject\Infrastructure\Interpretate\InterpretateCommandStrategyRegistry;
 use Hproject\Infrastructure\IoC\InitIoCContainerActionStrategyRegistry;
+use Hproject\Infrastructure\Jwt\JwtHandler;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
-class InterpretateController
+class InterpretateController extends AbstractController
 {
     public function __construct(
         private GameStateRepositoryInterface $gameStateRepository,
@@ -29,7 +33,21 @@ class InterpretateController
         #[MapQueryParameter] int $objectId,
         #[MapQueryParameter] string $command,
         #[MapQueryParameter] array $args,
+        Request $request,
+        JwtHandler $jwtHandler,
     ): JsonResponse {
+        $jwtHandler->validateAndCheckClaims(
+            jwtTokenRaw: $request->headers->get('Authorization'),
+            claims: function (\stdClass $jwtToken) use ($gameId) {
+                $userId = $jwtToken->userId;
+                $jwtGameId = $jwtToken->gameId;
+                $game = $this->gameStateRepository->getGame($gameId);
+                if ($jwtGameId !== $gameId || !$game || !in_array($userId, $game->playersIds)) {
+                    throw new UnauthorizedHttpException('Невозможно выполнить операцию');
+                }
+            },
+        );
+
         InitIoCContainerActionStrategyRegistry::init();
         InterpretateCommandStrategyRegistry::init();
 

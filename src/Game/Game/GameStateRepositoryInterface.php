@@ -7,7 +7,7 @@ namespace Hproject\Game\Game;
  */
 interface GameStateRepositoryInterface
 {
-    public function getGame(int $id): Game;
+    public function getGame(int $id): ?Game;
 
-    public function getGameObject(int $gameId, int $objectId): GameObjectInterface;
+    public function getGameObject(int $gameId, int $objectId): ?GameObjectInterface;
 }

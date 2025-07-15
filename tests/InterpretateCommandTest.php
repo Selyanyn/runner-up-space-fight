@@ -30,6 +30,7 @@ final class InterpretateCommandTest extends TestCase
             10.0,
         );
         $game = new Game(
+            1,
             new CommandQueue(),
             new GameState([
                 1 => $gameObject,
@@ -79,10 +80,12 @@ final class InterpretateCommandTest extends TestCase
             10.0,
         );
         $game = new Game(
+            1,
             new CommandQueue(),
             new GameState([
                 1 => $gameObject,
             ]),
+            [1, 2],
         );
 
         $interpretateCommand = new InterpretateCommand(
