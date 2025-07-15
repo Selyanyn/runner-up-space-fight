@@ -1,19 +1,21 @@
 <?php
 
-use Hproject\Infrastructure\Math\FlatVector;
+namespace Hproject\Tests;
+
 use Hproject\Game\Command\BurnFuelCommand;
 use Hproject\Game\Command\ChangeVelocityCommand;
 use Hproject\Game\Command\CheckFuelCommand;
-use Hproject\Infrastructure\Command\CommandException;
-use Hproject\Infrastructure\Command\MacroCommand;
 use Hproject\Game\Command\MoveCommand;
 use Hproject\Game\Command\RotateCounterclockwiseCommand;
 use Hproject\Game\GameObject\Spaceship;
+use Hproject\Infrastructure\Command\CommandException;
+use Hproject\Infrastructure\Command\MacroCommand;
+use Hproject\Infrastructure\Math\FlatVector;
 use PHPUnit\Framework\TestCase;
 
 final class MacroCommandTest extends TestCase
 {
-    public function testMoveWithBurn()
+    public function testMoveWithBurn(): void
     {
         $spaceship = new Spaceship(
             new FlatVector(5.0, 5.0),
@@ -38,12 +40,12 @@ final class MacroCommandTest extends TestCase
         $moveWithBurnCommand->execute();
         $this->assertTrue($spaceship->getLocation()->isEqualWithEpsilon(new FlatVector(14.0, 8.0)));
         $this->assertEqualsWithDelta($spaceship->getFuel(), 1.0, 0.0000001);
-        
+
         $this->expectException(CommandException::class);
         $moveWithBurnCommand->execute();
     }
 
-    public function testRotationWithVelocityChangeCommand()
+    public function testRotationWithVelocityChangeCommand(): void
     {
         $spaceship = new Spaceship(
             new FlatVector(5.0, 5.0),

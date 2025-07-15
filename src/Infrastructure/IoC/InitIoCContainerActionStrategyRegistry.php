@@ -10,7 +10,7 @@ namespace Hproject\Infrastructure\IoC;
  */
 final readonly class InitIoCContainerActionStrategyRegistry
 {
-    public static function init()
+    public static function init(): void
     {
         InversionOfControlContainer::init();
 

@@ -13,7 +13,7 @@ final readonly class FlatVector
     ) {
     }
 
-    public function addVector(FlatVector $vector)
+    public function addVector(FlatVector $vector): FlatVector
     {
         return new FlatVector(
             $this->x + $vector->x,
@@ -21,7 +21,7 @@ final readonly class FlatVector
         );
     }
 
-    public function rotateCounterclockwise(float $angle)
+    public function rotateCounterclockwise(float $angle): FlatVector
     {
         return new FlatVector(
             cos($angle) * $this->x - sin($angle) * $this->y,
@@ -34,7 +34,7 @@ final readonly class FlatVector
         return sqrt($this->x * $this->x + $this->y * $this->y);
     }
 
-    public function isEqualWithEpsilon(FlatVector $vector)
+    public function isEqualWithEpsilon(FlatVector $vector): bool
     {
         return EpsilonCompare::isEqual($this->x, $vector->x) && EpsilonCompare::isEqual($this->y, $vector->y);
     }

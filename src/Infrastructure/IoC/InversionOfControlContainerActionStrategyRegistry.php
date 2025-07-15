@@ -4,10 +4,13 @@ namespace Hproject\Infrastructure\IoC;
 
 final class InversionOfControlContainerActionStrategyRegistry
 {
+    /**
+     * @var list<callable(IoCScope): IoCActionResult>
+     */
     private $strategies = [];
 
     /**
-     * @param callable(IoCScope): IoCScope $strategy
+     * @param callable(IoCScope): IoCActionResult $strategy
      */
     public function registerStrategy(string $key, callable $strategy): void
     {

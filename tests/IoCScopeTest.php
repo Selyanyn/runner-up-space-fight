@@ -1,20 +1,23 @@
 <?php
 
+namespace Hproject\Tests;
+
 use Hproject\Game\Command\BurnFuelCommand;
 use Hproject\Game\Command\CheckFuelCommand;
-use Hproject\Infrastructure\Math\FlatVector;
-use Hproject\Infrastructure\IoC\InversionOfControlContainer;
-use Hproject\Infrastructure\IoC\InitIoCContainerActionStrategyRegistry;
-use Hproject\Infrastructure\IoC\IoCScopeException;
-use Hproject\Infrastructure\Command\MacroCommand;
 use Hproject\Game\Command\MoveCommand;
 use Hproject\Game\GameObject\Spaceship;
+use Hproject\Infrastructure\Command\CommandInterface;
+use Hproject\Infrastructure\Command\MacroCommand;
+use Hproject\Infrastructure\IoC\InitIoCContainerActionStrategyRegistry;
+use Hproject\Infrastructure\IoC\InversionOfControlContainer;
+use Hproject\Infrastructure\IoC\IoCScopeException;
+use Hproject\Infrastructure\Math\FlatVector;
 use PHPUnit\Framework\TestCase;
 
 final class IoCScopeTest extends TestCase
 {
     // Корректно получает родительскую зависимость
-    public function testGetParentScopeDependencySuccess()
+    public function testGetParentScopeDependencySuccess(): void
     {
         InitIoCContainerActionStrategyRegistry::init();
 
@@ -26,7 +29,7 @@ final class IoCScopeTest extends TestCase
 
         InversionOfControlContainer::resolve(
             'register',
-            "moveWithConstantFuelBurn",
+            'moveWithConstantFuelBurn',
             fn (Spaceship $spaceship) => new MacroCommand([
                 new CheckFuelCommand($spaceship, 3.0),
                 new BurnFuelCommand($spaceship, 3.0),
@@ -35,15 +38,16 @@ final class IoCScopeTest extends TestCase
         );
         InversionOfControlContainer::resolve(
             'addScope',
-            "sub",
+            'sub',
         );
         InversionOfControlContainer::resolve(
             'goToChildScope',
-            "sub",
+            'sub',
         );
 
+        /** @var CommandInterface $command */
         $command = InversionOfControlContainer::resolve(
-            "moveWithConstantFuelBurn",
+            'moveWithConstantFuelBurn',
             $spaceship,
         );
         $command->execute();
@@ -58,7 +62,7 @@ final class IoCScopeTest extends TestCase
     }
 
     // Родитель не получает зависимость потомка
-    public function testGetChildScopeDependencyFail()
+    public function testGetChildScopeDependencyFail(): void
     {
         InitIoCContainerActionStrategyRegistry::init();
 
@@ -70,15 +74,15 @@ final class IoCScopeTest extends TestCase
 
         InversionOfControlContainer::resolve(
             'addScope',
-            "sub",
+            'sub',
         );
         InversionOfControlContainer::resolve(
             'goToChildScope',
-            "sub",
+            'sub',
         );
         InversionOfControlContainer::resolve(
             'register',
-            "moveWithConstantFuelBurn",
+            'moveWithConstantFuelBurn',
             fn (Spaceship $spaceship) => new MacroCommand([
                 new CheckFuelCommand($spaceship, 3.0),
                 new BurnFuelCommand($spaceship, 3.0),
@@ -91,13 +95,13 @@ final class IoCScopeTest extends TestCase
 
         $this->expectException(IoCScopeException::class);
         $command = InversionOfControlContainer::resolve(
-            "moveWithConstantFuelBurn",
+            'moveWithConstantFuelBurn',
             $spaceship,
         );
     }
 
     // Можно зарегистрировать две зависимости в разных скоупах
-    public function testRegisterDependenciesInSiblingScopesSuccess()
+    public function testRegisterDependenciesInSiblingScopesSuccess(): void
     {
         InitIoCContainerActionStrategyRegistry::init();
 
@@ -109,15 +113,15 @@ final class IoCScopeTest extends TestCase
 
         InversionOfControlContainer::resolve(
             'addScope',
-            "sub2",
+            'sub2',
         );
         InversionOfControlContainer::resolve(
             'goToChildScope',
-            "sub2",
+            'sub2',
         );
         InversionOfControlContainer::resolve(
             'register',
-            "moveWithConstantFuelBurn",
+            'moveWithConstantFuelBurn',
             fn (Spaceship $spaceship) => new MacroCommand([
                 new CheckFuelCommand($spaceship, 3.0),
                 new BurnFuelCommand($spaceship, 3.0),
@@ -129,15 +133,15 @@ final class IoCScopeTest extends TestCase
         );
         InversionOfControlContainer::resolve(
             'addScope',
-            "sub",
+            'sub',
         );
         InversionOfControlContainer::resolve(
             'goToChildScope',
-            "sub",
+            'sub',
         );
         InversionOfControlContainer::resolve(
             'register',
-            "moveWithConstantFuelBurn",
+            'moveWithConstantFuelBurn',
             fn (Spaceship $spaceship) => new MacroCommand([
                 new CheckFuelCommand($spaceship, 1.0),
                 new BurnFuelCommand($spaceship, 1.0),
@@ -145,8 +149,9 @@ final class IoCScopeTest extends TestCase
             ]),
         );
 
+        /** @var CommandInterface $command */
         $command = InversionOfControlContainer::resolve(
-            "moveWithConstantFuelBurn",
+            'moveWithConstantFuelBurn',
             $spaceship,
         );
         $command->execute();
@@ -164,11 +169,12 @@ final class IoCScopeTest extends TestCase
         );
         InversionOfControlContainer::resolve(
             'goToChildScope',
-            "sub2",
+            'sub2',
         );
 
+        /** @var CommandInterface $command */
         $command = InversionOfControlContainer::resolve(
-            "moveWithConstantFuelBurn",
+            'moveWithConstantFuelBurn',
             $spaceship,
         );
         $command->execute();

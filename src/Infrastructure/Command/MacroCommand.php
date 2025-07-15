@@ -5,7 +5,7 @@ namespace Hproject\Infrastructure\Command;
 final readonly class MacroCommand implements CommandInterface
 {
     /**
-     * @list<CommandInterface>
+     * @param list<CommandInterface> $commands
      */
     public function __construct(
         private array $commands,

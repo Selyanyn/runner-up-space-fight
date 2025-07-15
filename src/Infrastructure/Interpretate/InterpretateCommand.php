@@ -12,6 +12,12 @@ use Hproject\Infrastructure\IoC\InversionOfControlContainer;
  */
 final readonly class InterpretateCommand implements CommandInterface
 {
+    /**
+     * @param Game $game
+     * @param GameObjectInterface $gameObject
+     * @param string $commandName
+     * @param list<mixed> $args
+     */
     public function __construct(
         private Game $game,
         private GameObjectInterface $gameObject,

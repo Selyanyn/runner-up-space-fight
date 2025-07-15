@@ -11,5 +11,5 @@ use Hproject\Infrastructure\Math\FlatVector;
  */
 interface VelocityChangeable extends PresentOnFieldInterface
 {
-    public function setVelocity(FlatVector $vector): void;
+    public function setVelocity(FlatVector $velocity): void;
 }

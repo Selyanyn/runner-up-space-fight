@@ -56,6 +56,9 @@ final class Spaceship implements Moveable, Rotateable, HasFuel, VelocityChangeab
     {
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonAgentResponse(): array
     {
         return [

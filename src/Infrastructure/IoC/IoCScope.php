@@ -23,7 +23,7 @@ final class IoCScope
         $this->parentScope = $parentScope;
     }
 
-    public function registerStrategy(string $key, callable $callback)
+    public function registerStrategy(string $key, callable $callback): void
     {
         $this->strategies[$key] = $callback;
     }

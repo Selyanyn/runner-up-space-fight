@@ -8,8 +8,14 @@ final class CommandQueue implements CommandQueueInterface
 {
     private bool $isProcessingActive = false;
 
+    /**
+     * @var list<CommandInterface>
+     */
     private array $commands = [];
 
+    /**
+     * @var list<callable>
+     */
     private array $beforeCommanProcessingEvents = [];
 
     public function __construct()

@@ -9,7 +9,7 @@ use Hproject\Infrastructure\Math\FlatVector;
  */
 interface Moveable extends PresentOnFieldInterface
 {
-    public function setLocation(FlatVector $vector): void;
+    public function setLocation(FlatVector $location): void;
 
     // Добавлено только ради п. 3 из задания. Структура реализованного адаптера позволяет обработать любые методы интерфейса.
     public function finish(): void;

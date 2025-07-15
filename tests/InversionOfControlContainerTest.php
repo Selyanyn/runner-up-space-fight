@@ -1,18 +1,21 @@
 <?php
 
+namespace Hproject\Tests;
+
 use Hproject\Game\Command\BurnFuelCommand;
 use Hproject\Game\Command\CheckFuelCommand;
-use Hproject\Infrastructure\Math\FlatVector;
-use Hproject\Infrastructure\IoC\InversionOfControlContainer;
-use Hproject\Infrastructure\IoC\InitIoCContainerActionStrategyRegistry;
-use Hproject\Infrastructure\Command\MacroCommand;
 use Hproject\Game\Command\MoveCommand;
 use Hproject\Game\GameObject\Spaceship;
+use Hproject\Infrastructure\Command\CommandInterface;
+use Hproject\Infrastructure\Command\MacroCommand;
+use Hproject\Infrastructure\IoC\InitIoCContainerActionStrategyRegistry;
+use Hproject\Infrastructure\IoC\InversionOfControlContainer;
+use Hproject\Infrastructure\Math\FlatVector;
 use PHPUnit\Framework\TestCase;
 
 final class InversionOfControlContainerTest extends TestCase
 {
-    public function testContainerWithNoParams()
+    public function testContainerWithNoParams(): void
     {
         InitIoCContainerActionStrategyRegistry::init();
 
@@ -24,7 +27,7 @@ final class InversionOfControlContainerTest extends TestCase
 
         InversionOfControlContainer::resolve(
             'register',
-            "moveWithConstantFuelBurn",
+            'moveWithConstantFuelBurn',
             fn (Spaceship $spaceship) => new MacroCommand([
                 new CheckFuelCommand($spaceship, 3.0),
                 new BurnFuelCommand($spaceship, 3.0),
@@ -33,9 +36,10 @@ final class InversionOfControlContainerTest extends TestCase
         );
         InversionOfControlContainer::resolve(
             'register',
-            "moveWithDynamicFuelBurn",
+            'moveWithDynamicFuelBurn',
             function (Spaceship $spaceship) {
                 $velocityModule = $spaceship->getVelocity()->getModule();
+
                 return new MacroCommand([
                     new CheckFuelCommand($spaceship, $velocityModule),
                     new BurnFuelCommand($spaceship, $velocityModule),
@@ -45,7 +49,7 @@ final class InversionOfControlContainerTest extends TestCase
         );
         InversionOfControlContainer::resolve(
             'register',
-            "moveWithSetFuelBurn",
+            'moveWithSetFuelBurn',
             function (Spaceship $spaceship, float $fuel) {
                 return new MacroCommand([
                     new CheckFuelCommand($spaceship, $fuel),
@@ -57,8 +61,9 @@ final class InversionOfControlContainerTest extends TestCase
 
         // Движение по стратегии А.
         // В PHP нельзя прописать одновременно именованный параметр и параметр с произвольным количеством элементов.
+        /** @var CommandInterface $command */
         $command = InversionOfControlContainer::resolve(
-            "moveWithConstantFuelBurn",
+            'moveWithConstantFuelBurn',
             $spaceship,
         );
         $command->execute();
@@ -72,8 +77,9 @@ final class InversionOfControlContainerTest extends TestCase
         );
 
         // Движение по стратегии Б
+        /** @var CommandInterface $command */
         $command = InversionOfControlContainer::resolve(
-            "moveWithDynamicFuelBurn",
+            'moveWithDynamicFuelBurn',
             $spaceship,
         );
         $command->execute();
@@ -87,8 +93,9 @@ final class InversionOfControlContainerTest extends TestCase
         );
 
         // Движение по стратегии В
+        /** @var CommandInterface $command */
         $command = InversionOfControlContainer::resolve(
-            "moveWithSetFuelBurn",
+            'moveWithSetFuelBurn',
             $spaceship,
             1.2,
         );

@@ -1,15 +1,17 @@
 <?php
 
-use Hproject\Infrastructure\Math\FlatVector;
-use Hproject\Infrastructure\IoC\InversionOfControlContainer;
-use Hproject\Infrastructure\IoC\InitIoCContainerActionStrategyRegistry;
+namespace Hproject\Tests;
+
 use Hproject\Game\GameObject\Moveable;
+use Hproject\Infrastructure\IoC\InitIoCContainerActionStrategyRegistry;
+use Hproject\Infrastructure\IoC\InversionOfControlContainer;
+use Hproject\Infrastructure\Math\FlatVector;
 use PHPUnit\Framework\TestCase;
 
 final class AdapterTest extends TestCase
 {
     // Корректно получает родительскую зависимость
-    public function testGetParentScopeDependencySuccess()
+    public function testGetParentScopeDependencySuccess(): void
     {
         InitIoCContainerActionStrategyRegistry::init();
 
@@ -24,19 +26,19 @@ final class AdapterTest extends TestCase
 
         InversionOfControlContainer::resolve(
             'register',
-            Moveable::class . "::getLocation",
+            Moveable::class.'::getLocation',
             fn ($spaceship) => new FlatVector($spaceship->locationX, $spaceship->locationY),
         );
 
         InversionOfControlContainer::resolve(
             'register',
-            Moveable::class . "::getVelocity",
+            Moveable::class.'::getVelocity',
             fn ($spaceship) => new FlatVector($spaceship->velocityX, $spaceship->velocityY),
         );
 
         InversionOfControlContainer::resolve(
             'register',
-            Moveable::class . "::setLocation",
+            Moveable::class.'::setLocation',
             function ($spaceship, FlatVector $location) {
                 $spaceship->locationX = $location->x;
                 $spaceship->locationY = $location->y;
@@ -45,12 +47,13 @@ final class AdapterTest extends TestCase
 
         InversionOfControlContainer::resolve(
             'register',
-            Moveable::class . "::finish",
+            Moveable::class.'::finish',
             function ($spaceship) {
                 $spaceship->fuel = 0.0;
             },
         );
 
+        /** @var Moveable $adapter */
         $adapter = InversionOfControlContainer::resolve(
             'adapter',
             Moveable::class,

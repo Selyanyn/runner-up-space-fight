@@ -9,5 +9,5 @@ use Hproject\Infrastructure\Math\FlatVector;
  */
 interface Rotateable extends PresentOnFieldInterface
 {
-    public function setVelocity(FlatVector $vector): void;
+    public function setVelocity(FlatVector $velocity): void;
 }

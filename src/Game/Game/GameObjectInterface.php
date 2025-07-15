@@ -7,5 +7,8 @@ namespace Hproject\Game\Game;
  */
 interface GameObjectInterface
 {
+    /**
+     * @return array<string, mixed>
+     */
     public function toJsonAgentResponse(): array;
 }

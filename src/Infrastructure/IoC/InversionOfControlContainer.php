@@ -17,7 +17,7 @@ final class InversionOfControlContainer
     public static function resolve(
         string $key,
         mixed ...$params,
-    ) {
+    ): mixed {
         if (self::$actionStrategyRegistry->isValidStrategy($key)) {
             $actionResult = self::$actionStrategyRegistry->getStrategy($key)(self::$scope, ...$params);
             self::$scope = $actionResult->currentScope;
