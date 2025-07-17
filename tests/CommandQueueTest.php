@@ -1,25 +1,20 @@
 <?php
 
-use Hproject\BurnFuelCommand;
-use Hproject\CommandException;
-use Hproject\CheckFuelCommand;
-use Hproject\FlatVector;
-use Hproject\IoC\InversionOfControlContainer;
-use Hproject\IoC\InitIoCContainerActionStrategyRegistry;
-use Hproject\IoC\IoCScopeException;
-use Hproject\MacroCommand;
-use Hproject\Moveable;
-use Hproject\MoveCommand;
-use Hproject\Queue\BeginQueueProcessingCommand;
-use Hproject\Queue\CommandQueue;
-use Hproject\Queue\HardStopQueueProcessingCommand;
-use Hproject\Queue\SoftStopQueueProcessingCommand;
-use Hproject\Spaceship;
+namespace Hproject\Tests;
+
+use Hproject\Game\Command\BurnFuelCommand;
+use Hproject\Game\Command\MoveCommand;
+use Hproject\Game\GameObject\Spaceship;
+use Hproject\Infrastructure\Math\FlatVector;
+use Hproject\Infrastructure\Queue\BeginQueueProcessingCommand;
+use Hproject\Infrastructure\Queue\CommandQueue;
+use Hproject\Infrastructure\Queue\HardStopQueueProcessingCommand;
+use Hproject\Infrastructure\Queue\SoftStopQueueProcessingCommand;
 use PHPUnit\Framework\TestCase;
 
 final class CommandQueueTest extends TestCase
 {
-    public function testCommandProcessing()
+    public function testCommandProcessing(): void
     {
         $spaceship = new Spaceship(
             new FlatVector(0.0, 0.0),
@@ -35,13 +30,13 @@ final class CommandQueueTest extends TestCase
         $startupCommand->execute();
 
         $this->assertTrue($spaceship->getLocation()->isEqualWithEpsilon(new FlatVector(2.0, 0.0)));
-        
+
         // Проверка того, что очередь потребляет команды (старые команды не активируются снова)
         $queue->enqueue(new MoveCommand($spaceship));
         $this->assertTrue($spaceship->getLocation()->isEqualWithEpsilon(new FlatVector(3.0, 0.0)));
     }
 
-    public function testCommandProcessingWithErroneousCommand()
+    public function testCommandProcessingWithErroneousCommand(): void
     {
         $spaceship = new Spaceship(
             new FlatVector(0.0, 0.0),
@@ -61,7 +56,7 @@ final class CommandQueueTest extends TestCase
         $this->assertTrue($spaceship->getLocation()->isEqualWithEpsilon(new FlatVector(2.0, 0.0)));
     }
 
-    public function testHardStop()
+    public function testHardStop(): void
     {
         $spaceship = new Spaceship(
             new FlatVector(0.0, 0.0),
@@ -71,7 +66,7 @@ final class CommandQueueTest extends TestCase
 
         $queue = new CommandQueue();
         $queue->enqueue(new MoveCommand($spaceship));
-        $queue->enqueue(new HardStopQueueProcessingCommand($queue));
+        $queue->enqueue(new HardStopQueueProcessingCommand());
         $queue->enqueue(new MoveCommand($spaceship));
 
         $startupCommand = new BeginQueueProcessingCommand($queue);
@@ -85,7 +80,7 @@ final class CommandQueueTest extends TestCase
         $this->assertTrue($spaceship->getLocation()->isEqualWithEpsilon(new FlatVector(1.0, 0.0)));
     }
 
-    public function testSoftStop()
+    public function testSoftStop(): void
     {
         $spaceship = new Spaceship(
             new FlatVector(0.0, 0.0),
@@ -95,7 +90,7 @@ final class CommandQueueTest extends TestCase
 
         $queue = new CommandQueue();
         $queue->enqueue(new MoveCommand($spaceship));
-        $queue->enqueue(new SoftStopQueueProcessingCommand($queue));
+        $queue->enqueue(new SoftStopQueueProcessingCommand());
         $queue->enqueue(new MoveCommand($spaceship));
 
         $startupCommand = new BeginQueueProcessingCommand($queue);
