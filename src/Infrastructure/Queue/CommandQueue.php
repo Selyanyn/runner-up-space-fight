@@ -6,20 +6,16 @@ use Hproject\Infrastructure\Command\CommandInterface;
 
 final class CommandQueue implements CommandQueueInterface
 {
-    private bool $isProcessingActive = false;
-
     /**
      * @var list<CommandInterface>
      */
     private array $commands = [];
 
-    /**
-     * @var list<callable>
-     */
-    private array $beforeCommanProcessingEvents = [];
+    private ?CommandQueueStateInterface $state;
 
     public function __construct()
     {
+        $this->state = null;
     }
 
     /**
@@ -37,7 +33,7 @@ final class CommandQueue implements CommandQueueInterface
      */
     public function beginQueueProcessing(): void
     {
-        $this->isProcessingActive = true;
+        $this->state = new RunCommandQueueState();
         $this->processQueue();
     }
 
@@ -46,22 +42,17 @@ final class CommandQueue implements CommandQueueInterface
      */
     public function stopQueueProcessing(): void
     {
-        $this->isProcessingActive = false;
+        $this->state = null;
     }
 
     public function isProcessingActive(): bool
     {
-        return $this->isProcessingActive;
+        return $this->state !== null;
     }
 
     public function isQueueEmpty(): bool
     {
         return 0 === count($this->commands);
-    }
-
-    public function addBeforeCommandProcessingEvent(callable $event): void
-    {
-        $this->beforeCommanProcessingEvents[] = $event;
     }
 
     /**
@@ -72,13 +63,11 @@ final class CommandQueue implements CommandQueueInterface
     private function processQueue(): void
     {
         foreach ($this->commands as $key => $command) {
-            if ($this->isProcessingActive) {
+            if ($this->state !== null) {
                 unset($this->commands[$key]);
                 try {
-                    foreach ($this->beforeCommanProcessingEvents as $event) {
-                        $event();
-                    }
-                    $command->execute();
+                    $this->state = $this->state->execute($command);
+                    $this->state = $this->state?->afterCommandExecution($this);
                 } catch (\Throwable $e) {
                     // Ошибку можно было бы залогировать
                 }

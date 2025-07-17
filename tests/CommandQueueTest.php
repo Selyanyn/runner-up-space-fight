@@ -66,7 +66,7 @@ final class CommandQueueTest extends TestCase
 
         $queue = new CommandQueue();
         $queue->enqueue(new MoveCommand($spaceship));
-        $queue->enqueue(new HardStopQueueProcessingCommand($queue));
+        $queue->enqueue(new HardStopQueueProcessingCommand());
         $queue->enqueue(new MoveCommand($spaceship));
 
         $startupCommand = new BeginQueueProcessingCommand($queue);
@@ -90,7 +90,7 @@ final class CommandQueueTest extends TestCase
 
         $queue = new CommandQueue();
         $queue->enqueue(new MoveCommand($spaceship));
-        $queue->enqueue(new SoftStopQueueProcessingCommand($queue));
+        $queue->enqueue(new SoftStopQueueProcessingCommand());
         $queue->enqueue(new MoveCommand($spaceship));
 
         $startupCommand = new BeginQueueProcessingCommand($queue);
