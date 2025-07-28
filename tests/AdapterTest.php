@@ -1,22 +1,17 @@
 <?php
 
-use Hproject\BurnFuelCommand;
-use Hproject\CommandException;
-use Hproject\CheckFuelCommand;
-use Hproject\FlatVector;
-use Hproject\IoC\InversionOfControlContainer;
-use Hproject\IoC\InitIoCContainerActionStrategyRegistry;
-use Hproject\IoC\IoCScopeException;
-use Hproject\MacroCommand;
-use Hproject\Moveable;
-use Hproject\MoveCommand;
-use Hproject\Spaceship;
+namespace Hproject\Tests;
+
+use Hproject\Game\GameObject\Moveable;
+use Hproject\Infrastructure\IoC\InitIoCContainerActionStrategyRegistry;
+use Hproject\Infrastructure\IoC\InversionOfControlContainer;
+use Hproject\Infrastructure\Math\FlatVector;
 use PHPUnit\Framework\TestCase;
 
 final class AdapterTest extends TestCase
 {
     // Корректно получает родительскую зависимость
-    public function testGetParentScopeDependencySuccess()
+    public function testGetParentScopeDependencySuccess(): void
     {
         InitIoCContainerActionStrategyRegistry::init();
 
@@ -31,19 +26,19 @@ final class AdapterTest extends TestCase
 
         InversionOfControlContainer::resolve(
             'register',
-            "Hproject\Moveable::getLocation",
+            Moveable::class.'::getLocation',
             fn ($spaceship) => new FlatVector($spaceship->locationX, $spaceship->locationY),
         );
 
         InversionOfControlContainer::resolve(
             'register',
-            "Hproject\Moveable::getVelocity",
+            Moveable::class.'::getVelocity',
             fn ($spaceship) => new FlatVector($spaceship->velocityX, $spaceship->velocityY),
         );
 
         InversionOfControlContainer::resolve(
             'register',
-            "Hproject\Moveable::setLocation",
+            Moveable::class.'::setLocation',
             function ($spaceship, FlatVector $location) {
                 $spaceship->locationX = $location->x;
                 $spaceship->locationY = $location->y;
@@ -52,12 +47,13 @@ final class AdapterTest extends TestCase
 
         InversionOfControlContainer::resolve(
             'register',
-            "Hproject\Moveable::finish",
+            Moveable::class.'::finish',
             function ($spaceship) {
                 $spaceship->fuel = 0.0;
             },
         );
 
+        /** @var Moveable $adapter */
         $adapter = InversionOfControlContainer::resolve(
             'adapter',
             Moveable::class,

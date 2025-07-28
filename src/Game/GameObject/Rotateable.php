@@ -1,0 +1,13 @@
+<?php
+
+namespace Hproject\Game\GameObject;
+
+use Hproject\Infrastructure\Math\FlatVector;
+
+/**
+ * Для исполнения поворота у объекта должна иметься возможность сменить скорость.
+ */
+interface Rotateable extends PresentOnFieldInterface
+{
+    public function setVelocity(FlatVector $velocity): void;
+}
