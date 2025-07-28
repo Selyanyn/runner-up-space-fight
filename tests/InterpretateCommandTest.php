@@ -25,6 +25,7 @@ final class InterpretateCommandTest extends TestCase
         InterpretateCommandStrategyRegistry::init();
 
         $gameObject = new Spaceship(
+            1,
             new FlatVector(5.0, 5.0),
             new FlatVector(3.0, 1.0),
             10.0,
@@ -75,6 +76,7 @@ final class InterpretateCommandTest extends TestCase
         );
 
         $gameObject = new Spaceship(
+            1,
             new FlatVector(5.0, 5.0),
             new FlatVector(3.0, 1.0),
             10.0,

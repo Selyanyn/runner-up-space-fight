@@ -17,6 +17,7 @@ final readonly class MockGameStateRepository implements GameStateRepositoryInter
     public function __construct()
     {
         $gameObject = new Spaceship(
+            1,
             new FlatVector(5.0, 5.0),
             new FlatVector(3.0, 1.0),
             10.0,

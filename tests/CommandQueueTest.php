@@ -17,6 +17,7 @@ final class CommandQueueTest extends TestCase
     public function testCommandProcessing(): void
     {
         $spaceship = new Spaceship(
+            1,
             new FlatVector(0.0, 0.0),
             new FlatVector(1.0, 0.0),
             10.0,
@@ -39,6 +40,7 @@ final class CommandQueueTest extends TestCase
     public function testCommandProcessingWithErroneousCommand(): void
     {
         $spaceship = new Spaceship(
+            1,
             new FlatVector(0.0, 0.0),
             new FlatVector(1.0, 0.0),
             10.0,
@@ -59,6 +61,7 @@ final class CommandQueueTest extends TestCase
     public function testHardStop(): void
     {
         $spaceship = new Spaceship(
+            1,
             new FlatVector(0.0, 0.0),
             new FlatVector(1.0, 0.0),
             10.0,
@@ -83,6 +86,7 @@ final class CommandQueueTest extends TestCase
     public function testSoftStop(): void
     {
         $spaceship = new Spaceship(
+            1,
             new FlatVector(0.0, 0.0),
             new FlatVector(1.0, 0.0),
             10.0,

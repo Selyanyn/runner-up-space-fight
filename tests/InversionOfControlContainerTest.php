@@ -20,6 +20,7 @@ final class InversionOfControlContainerTest extends TestCase
         InitIoCContainerActionStrategyRegistry::init();
 
         $spaceship = new Spaceship(
+            1,
             new FlatVector(5.0, 5.0),
             new FlatVector(3.0, 4.0),
             10.0,

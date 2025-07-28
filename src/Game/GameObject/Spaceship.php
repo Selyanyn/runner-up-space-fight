@@ -3,8 +3,8 @@
 namespace Hproject\Game\GameObject;
 
 use Hproject\Game\Game\GameObjectInterface;
-use Hproject\Infrastructure\Math\FlatVector;
 use Hproject\Infrastructure\Math\EpsilonCompare;
+use Hproject\Infrastructure\Math\FlatVector;
 
 /**
  * Простйешая реализация интерфейсов Moveable и Rotateable.
@@ -12,10 +12,16 @@ use Hproject\Infrastructure\Math\EpsilonCompare;
 final class Spaceship implements Moveable, Rotateable, HasFuel, VelocityChangeable, GameObjectInterface
 {
     public function __construct(
+        private readonly int $id,
         private FlatVector $location,
         private FlatVector $velocity,
         private float $fuel,
     ) {
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function getLocation(): FlatVector

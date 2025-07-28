@@ -18,6 +18,7 @@ final class MacroCommandTest extends TestCase
     public function testMoveWithBurn(): void
     {
         $spaceship = new Spaceship(
+            1,
             new FlatVector(5.0, 5.0),
             new FlatVector(3.0, 1.0),
             10.0,
@@ -48,6 +49,7 @@ final class MacroCommandTest extends TestCase
     public function testRotationWithVelocityChangeCommand(): void
     {
         $spaceship = new Spaceship(
+            1,
             new FlatVector(5.0, 5.0),
             new FlatVector(10.0, 40.0),
             10.0,

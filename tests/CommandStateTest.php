@@ -21,6 +21,7 @@ final class CommandStateTest extends TestCase
     public function testChangeQueueStateToMoveToCommand(): void
     {
         $spaceship = new Spaceship(
+            1,
             new FlatVector(0.0, 0.0),
             new FlatVector(1.0, 0.0),
             10.0,
@@ -48,6 +49,7 @@ final class CommandStateTest extends TestCase
     public function testChangeQueueStateToRunCommand(): void
     {
         $spaceship = new Spaceship(
+            1,
             new FlatVector(0.0, 0.0),
             new FlatVector(1.0, 0.0),
             10.0,

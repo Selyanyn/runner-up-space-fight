@@ -2,11 +2,15 @@
 
 namespace Hproject\Game\Game;
 
+use Hproject\Game\GameObject\PresentOnFieldInterface;
+
 /**
  * Интерфейс игрового объекта. Они могут кардинально друг от друга отличаться, но все они должны быть сериализуемы.
  */
-interface GameObjectInterface
+interface GameObjectInterface extends PresentOnFieldInterface
 {
+    public function getId(): int;
+
     /**
      * @return array<string, mixed>
      */
