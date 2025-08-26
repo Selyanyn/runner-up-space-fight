@@ -11,4 +11,9 @@ final class GameState
         public array $gameObjects,
     ) {
     }
+
+    public function generateNextId(): int
+    {
+        return (end($this->gameObjects)->getId() ?: 0) + 1;
+    }
 }

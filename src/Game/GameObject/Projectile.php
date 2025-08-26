@@ -3,20 +3,22 @@
 namespace Hproject\Game\GameObject;
 
 use Hproject\Game\Game\GameObjectInterface;
-use Hproject\Infrastructure\Math\EpsilonCompare;
 use Hproject\Infrastructure\Math\FlatVector;
 
 /**
- * Простйешая реализация интерфейсов Moveable и Rotateable.
+ * Класс снаряда; перемещается, но топлива не требует
  */
-final class Spaceship implements MoveableAndVelocityChangeable, Rotateable, HasFuel, GameObjectInterface
+class Projectile implements MoveableAndVelocityChangeable, Rotateable, GameObjectInterface
 {
+    protected int $damage;
+
     public function __construct(
         private readonly int $id,
         private FlatVector $location,
         private FlatVector $velocity,
-        private float $fuel,
+        int $damage,
     ) {
+        $this->setDamage($damage);
     }
 
     public function getId(): int
@@ -44,18 +46,18 @@ final class Spaceship implements MoveableAndVelocityChangeable, Rotateable, HasF
         $this->velocity = $velocity;
     }
 
-    public function getFuel(): float
+    public function getDamage(): int
     {
-        return $this->fuel;
+        return $this->damage;
     }
 
-    public function burnFuel(float $burntFuel): void
+    public function setDamage(int $damage): void
     {
-        if (EpsilonCompare::greaterThan($burntFuel, $this->fuel)) {
-            throw new \InvalidArgumentException('Нельзя потратить больше топлива, чем есть в корабле!');
+        if ($damage < 0) {
+            throw new \InvalidArgumentException('Урон от снаряда не может быть меньше 0');
         }
 
-        $this->fuel -= $burntFuel;
+        $this->damage = $damage;
     }
 
     public function finish(): void
@@ -70,7 +72,6 @@ final class Spaceship implements MoveableAndVelocityChangeable, Rotateable, HasF
         return [
             'location' => [$this->location->x, $this->location->y],
             'velocity' => [$this->velocity->x, $this->velocity->y],
-            'fuel' => $this->fuel,
         ];
     }
 }
