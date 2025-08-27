@@ -22,12 +22,12 @@ final readonly class MockGameStateRepository implements GameStateRepositoryInter
             new FlatVector(3.0, 1.0),
             10.0,
         );
+        $gameState = new GameState();
+        $gameState->addGameObject($gameObject, [1, 2]);
         $this->game = new Game(
             1,
             new CommandQueue(),
-            new GameState([
-                1 => $gameObject,
-            ]),
+            $gameState,
             [1, 2],
         );
     }
@@ -39,6 +39,6 @@ final readonly class MockGameStateRepository implements GameStateRepositoryInter
 
     public function getGameObject(int $gameId, int $objectId): ?GameObjectInterface
     {
-        return $this->game->gameState->gameObjects[$objectId] ?? null;
+        return $this->game->gameState->getGameObject($objectId, $this->game->playersIds) ?? null;
     }
 }

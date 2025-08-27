@@ -13,7 +13,7 @@ final readonly class MoveExpressionAstBuilder
         FlatVector $initialVelocity,
     ): MoveExpression {
         return new MoveExpression(
-            new TerminalContextExpression('game_object_'.$gameObjectId),
+            new TerminalGameObjectContextExpression($gameObjectId),
             new TerminalValueExpression($initialVelocity)
         );
     }

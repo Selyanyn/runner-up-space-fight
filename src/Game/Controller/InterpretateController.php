@@ -36,7 +36,7 @@ class InterpretateController extends AbstractController
         Request $request,
         JwtHandler $jwtHandler,
     ): JsonResponse {
-        $jwtHandler->validateAndCheckClaims(
+        $userId = $jwtHandler->validateAndCheckClaims(
             jwtTokenRaw: $request->headers->get('Authorization'),
             claims: function (\stdClass $jwtToken) use ($gameId) {
                 $userId = $jwtToken->userId;
@@ -63,7 +63,7 @@ class InterpretateController extends AbstractController
         $interpretateCommand->execute();
 
         $gameStateObjects = [];
-        foreach ($game->gameState->gameObjects as $key => $object) {
+        foreach ($game->gameState->getAllGameObjects([$userId]) as $key => $object) {
             $gameStateObjects[$key] = $object->toJsonAgentResponse();
         }
 

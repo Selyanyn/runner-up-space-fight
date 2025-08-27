@@ -30,12 +30,12 @@ final class InterpretateCommandTest extends TestCase
             new FlatVector(3.0, 1.0),
             10.0,
         );
+        $gameState = new GameState();
+        $gameState->addGameObject($gameObject, [1, 2]);
         $game = new Game(
             1,
             new CommandQueue(),
-            new GameState([
-                1 => $gameObject,
-            ]),
+            $gameState,
             [1, 2],
         );
 
@@ -81,12 +81,12 @@ final class InterpretateCommandTest extends TestCase
             new FlatVector(3.0, 1.0),
             10.0,
         );
+        $gameState = new GameState();
+        $gameState->addGameObject($gameObject, [1, 2]);
         $game = new Game(
             1,
             new CommandQueue(),
-            new GameState([
-                1 => $gameObject,
-            ]),
+            $gameState,
             [1, 2],
         );
 

@@ -12,7 +12,7 @@ final readonly class StopExpressionAstBuilder
         int $gameObjectId,
     ): StopExpression {
         return new StopExpression(
-            new TerminalContextExpression('game_object_'.$gameObjectId),
+            new TerminalGameObjectContextExpression($gameObjectId),
         );
     }
 }

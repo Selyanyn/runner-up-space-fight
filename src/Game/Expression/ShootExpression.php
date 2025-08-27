@@ -23,7 +23,7 @@ final readonly class ShootExpression extends AbstractExpression
     public function interpret(Context $context): mixed
     {
         /** @var Game $game */
-        $game = $context->get('game_state');
+        $game = $context->get('game');
 
         /** @var PresentOnFieldInterface $gameObject */
         $gameObject = $this->gameObjectExpression->interpret($context);
@@ -38,7 +38,7 @@ final readonly class ShootExpression extends AbstractExpression
         // Исходное перемещение снаряда - чтобы не столкнулся с испустившим его игровым объектом
         (new MoveCommand($projectile))->execute();
 
-        $game->gameState->gameObjects[$projectile->getId()] = $projectile;
+        $game->gameState->addGameObject($projectile, [$context->get('userId')]);
 
         return $projectile;
     }

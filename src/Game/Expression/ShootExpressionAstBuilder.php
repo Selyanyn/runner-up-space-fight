@@ -14,7 +14,7 @@ final readonly class ShootExpressionAstBuilder
         int $damage,
     ): ShootExpression {
         return new ShootExpression(
-            new TerminalContextExpression('game_object_'.$gameObjectId),
+            new TerminalGameObjectContextExpression($gameObjectId),
             new TerminalValueExpression($initialVelocity),
             new TerminalValueExpression($damage),
         );
