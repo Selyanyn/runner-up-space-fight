@@ -1,0 +1,21 @@
+<?php
+
+namespace Hproject\Infrastructure\Command;
+
+final readonly class MacroCommand implements CommandInterface
+{
+    /**
+     * @param list<CommandInterface> $commands
+     */
+    public function __construct(
+        private array $commands,
+    ) {
+    }
+
+    public function execute(): void
+    {
+        foreach ($this->commands as $command) {
+            $command->execute();
+        }
+    }
+}
